@@ -1,3 +1,16 @@
+
+import subprocess
+
+try:
+    # Check the installed version of Google Chrome
+    chrome_version = subprocess.check_output(["google-chrome", "--version"]).decode("utf-8").strip()
+    print(f"Installed Chrome version: {chrome_version}")
+except Exception as e:
+    print(f"Error checking Chrome version: {e}")
+
+
+
+
 import os
 import time
 from selenium import webdriver
