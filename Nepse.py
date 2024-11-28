@@ -1,14 +1,25 @@
-
+import os
 import subprocess
 
-try:
-    # Check the installed version of Google Chrome
-    chrome_version = subprocess.check_output(["google-chrome", "--version"]).decode("utf-8").strip()
-    print(f"Installed Chrome version: {chrome_version}")
-except Exception as e:
-    print(f"Error checking Chrome version: {e}")
+def find_chrome_version():
+    possible_paths = [
+        "/usr/bin/google-chrome",           # Common location in Linux
+        "/usr/local/bin/google-chrome",     # Alternative location
+        "/opt/google/chrome/google-chrome" # Less common location
+    ]
 
+    for path in possible_paths:
+        if os.path.exists(path):
+            try:
+                version = subprocess.check_output([path, "--version"]).decode("utf-8").strip()
+                return version
+            except Exception as e:
+                return f"Error checking version: {e}"
 
+    return "Google Chrome not found"
+
+chrome_version = find_chrome_version()
+print(f"Installed Chrome version: {chrome_version}")
 
 
 import os
